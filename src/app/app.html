@@ -1,1 +1,184 @@
-<h1>Creating the Future...</h1>
+<header class="flex flex-row justify-between py-[12px] mb-[16px]">
+    <img src="./../assets/logo.svg" alt="МойСклад" class="h-[24px]">
+    <button type="button" id="add-data-button" class="text-white text-xs bg-blue-700 px-[12px] py-[8px] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg me-2 mb-2 text-center inline-flex gap-[8px] items-center">
+        <img src="./../assets/icon-file-add.svg" alt="+">
+        Add data
+    </button>
+</header>
+<main class="grow">
+    <section class="content">
+        <table class="w-full text-sm text-left text-gray-500 ">
+            <thead class="text-xs text-gray-500 uppercase bg-gray-50 border-b">
+                <tr>
+                    <th scope="col" class="p-[16px]">
+                        Transaction
+                    </th>
+                    <th scope="col" class="p-[16px]">
+                        Date & time
+                    </th>
+                    <th scope="col" class="p-[16px]">
+                        Amount
+                    </th>
+                    <th scope="col" class="p-[16px]">
+                        Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr class="bg-white border-b">
+                <th scope="row" class="font-normal text-gray-900 whitespace-nowrap p-[16px]">
+                    Payment from <span class="font-bold">Bonnie Green</span>
+                </th>
+                <td class="text-gray-500 p-[16px]">
+                    Apr 23, 2021
+                </td>
+                <td class="font-bold text-gray-900 p-[16px]">
+                    $2300
+                </td>
+                <td class="p-[16px]">
+                    <span class="h-[22px] bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                        Completed
+                    </span>
+                </td>
+            </tr>
+            <tr class="bg-white border-b">
+                <th scope="row" class="font-normal text-gray-900 whitespace-nowrap p-[16px]">
+                    Payment refund to <span class="font-bold">#00910</span>
+                </th>
+                <td class="text-gray-500 p-[16px]">
+                    Apr 23, 2021
+                </td>
+                <td class="font-bold text-gray-900 p-[16px]">
+                    -$670
+                </td>
+                <td class="p-[16px]">
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                        Completed
+                    </span>
+                </td>
+            </tr>
+            <tr class="bg-white border-b">
+                <th scope="row" class="font-normal text-gray-900 whitespace-nowrap p-[16px]">
+                    Payment failed from <span class="font-bold">#087651</span>
+                </th>
+                <td class="text-gray-500 p-[16px]">
+                    Apr 18, 2021
+                </td>
+                <td class="font-bold text-gray-900 p-[16px]">
+                    $234
+                </td>
+                <td class="p-[16px]">
+                    <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
+                        Cancelled
+                    </span>
+                </td>
+            </tr>
+            <tr class="bg-white border-b">
+                <th scope="row" class="font-normal text-gray-900 whitespace-nowrap p-[16px]">
+                    Payment from <span class="font-bold">Lana Byrd</span>
+                </th>
+                <td class="text-gray-500 p-[16px]">
+                    Apr 15, 2021
+                </td>
+                <td class="font-bold text-gray-900 p-[16px]">
+                    $5000
+                </td>
+                <td class="p-[16px]">
+                    <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
+                        In progress
+                    </span>
+                </td>
+            </tr>
+            <tr class="bg-white border-b">
+                <th scope="row" class="font-normal text-gray-900 whitespace-nowrap p-[16px]">
+                    Payment from <span class="font-bold">Jese Leos</span>
+                </th>
+                <td class="text-gray-500 p-[16px]">
+                    Apr 15, 2021
+                </td>
+                <td class="font-bold text-gray-900 p-[16px]">
+                    $2300
+                </td>
+                <td class="p-[16px]">
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                        Completed
+                    </span>
+                </td>
+            </tr>
+            <tr class="bg-white border-b">
+                <th scope="row" class="font-normal text-gray-900 whitespace-nowrap p-[16px]">
+                    Payment from <span class="font-bold">THEMSBERG LLC</span>
+                </th>
+                <td class="text-gray-500 p-[16px]">
+                    Apr 11, 2021
+                </td>
+                <td class="font-bold text-gray-900 p-[16px]">
+                    $560
+                </td>
+                <td class="p-[16px]">
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                        Completed
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section
+        id="modal"
+        tabindex="-1" aria-hidden="true" aria-modal="true" role="dialog"
+        class="flex hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full bg-gray-900/50 dark:bg-gray-900/80"
+    >
+        <div class="relative p-4 w-[480px] max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <div class="flex items-center justify-between px-4 pt-4 rounded-t">
+                    <button type="button" id="close-form-button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <div class="flex flex-col pt-[20px] px-[32px] pb-[32px] gap-[16px]">
+                    <h3 class="text-xl font-semibold text-gray-900">
+                        Sign in to our platform
+                    </h3>
+                    <form>
+                        <label for="input-email" class="block mb-2 text-sm font-medium text-gray-500">Your Email</label>
+                        <div class="relative mb-6">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                                    <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                                    <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                                </svg>
+                            </div>
+                            <input type="text" id="input-email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="name@flowbite.com">
+                        </div>
+                        <div class="mb-6">
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                            <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="•••••••••" required/>
+                        </div>
+                        <div class="grid gap-6 grid-cols-2">
+                            <div class="flex items-start mb-6">
+                                <div class="flex items-center h-5">
+                                    <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" required />
+                                </div>
+                                <label for="remember" class="ms-2 text-sm font-medium text-gray-900">Remember me</label>
+                            </div>
+                            <div class="justify-self-end">
+                                <a href="#" class="text-blue-600 hover:underline">Lost password?</a>
+                            </div>
+                        </div>
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Sign in</button>
+                        <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500=">Not registered? <a href="#" class="font-medium text-blue-600 hover:underline">Create account</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="shrink-0">
+    <div class="w-full max-w-screen-xl mx-auto p-[10px]">
+        <span class="block text-sm text-black text-center">© 2007–2024 ООО «Логнекс»</span>
+    </div>
+</footer>
