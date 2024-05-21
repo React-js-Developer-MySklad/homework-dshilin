@@ -1,0 +1,19 @@
+.button {
+    @apply text-white;
+    @apply text-xs;
+    @apply bg-blue-700;
+    @apply px-[12px];
+    @apply py-[8px];
+    @apply hover:bg-blue-800;
+    @apply focus:ring-4;
+    @apply focus:outline-none;
+    @apply focus:ring-blue-300;
+    @apply font-medium;
+    @apply rounded-lg;
+    @apply me-2;
+    @apply mb-2;
+    @apply text-center;
+    @apply inline-flex;
+    @apply gap-[8px];
+    @apply items-center;
+}

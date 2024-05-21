@@ -1,0 +1,17 @@
+.contragent-add-form {
+    button {
+        @apply text-white;
+        @apply bg-blue-700;
+        @apply hover:bg-blue-800;
+        @apply focus:ring-4;
+        @apply focus:outline-none;
+        @apply focus:ring-blue-300;
+        @apply font-medium;
+        @apply rounded-lg;
+        @apply text-sm;
+        @apply w-full;
+        @apply px-5;
+        @apply py-2.5;
+        @apply text-center;
+    }
+}

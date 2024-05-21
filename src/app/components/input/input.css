@@ -1,0 +1,25 @@
+.input {
+    @apply mb-6;
+
+    label {
+        @apply block;
+        @apply mb-2;
+        @apply text-sm;
+        @apply font-medium;
+        @apply text-gray-900;
+    }
+
+    input {
+        @apply bg-gray-50;
+        @apply border;
+        @apply border-gray-300;
+        @apply text-gray-900;
+        @apply text-sm;
+        @apply rounded-lg;
+        @apply focus:ring-blue-500;
+        @apply focus:border-blue-500;
+        @apply block;
+        @apply w-full;
+        @apply p-2.5;
+    }
+}
