@@ -1,5 +1,5 @@
 import Input from "@components/input/input";
-import {createRef} from "@core/ref";
+import {createRef} from "@tiny-ui/ref";
 
 import './contragent-add-panel.css'
 

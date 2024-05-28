@@ -1,3 +1,5 @@
+import TinyUI from "@tiny-ui/ui";
+import {createRef} from "@tiny-ui/ref";
 import DataTable, {Row} from "./components/data-table/data-table";
 import Button from "./components/button/button";
 import Modal from "./components/modal/modal";
@@ -7,15 +9,14 @@ import Footer from "./components/footer/footer";
 import Logo from '@assets/logo.svg'
 import IconFileAdd from '@assets/icon-file-add.svg'
 
-import {createRef} from "@core/ref";
+import './app.css';
 
-import './app.css'
+import data from '../data/contragents.json';
 
-import data from '../data/contragents.json'
 
 window.addEventListener('load', function () {
-    console.log(<App/>);
-    document.getElementById('root').appendChild(<App/>);
+    const root = document.getElementById('root')
+    TinyUI.bind(root, <App/>);
 });
 
 const App = () => {

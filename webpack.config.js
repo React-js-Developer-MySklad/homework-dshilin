@@ -10,7 +10,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.svg'],
         alias: {
-            '@core': path.resolve(__dirname, 'core'),
+            '@tiny-ui': path.resolve(__dirname, 'tiny-ui'),
             '@src': path.resolve(__dirname, 'src'),
             '@components': path.resolve(__dirname, 'src/app/components'),
             '@assets': path.resolve(__dirname, 'src/assets'),

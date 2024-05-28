@@ -1,6 +1,6 @@
 import './data-table.css'
 import TrashIcon from '@assets/icon-trash-bean.svg'
-import {createRef} from "@core/ref";
+import {createRef} from "@tiny-ui/ref";
 
 const DataTable = ({columns, rows, bodyRef}) => {
     return (
@@ -33,7 +33,7 @@ export const Row = ({values}) => {
 }
 
 const RowCell = (props) => (
-    <td class={`p-[16px] ${props.class}`}>{props.children}</td>
+    <td class="p-[16px]">{props.children}</td>
 );
 
 const RemoveButton = ({rowRef}) => (
