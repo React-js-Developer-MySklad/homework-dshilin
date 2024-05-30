@@ -11,7 +11,7 @@ const DataTable = ({columns, rows, onEdit, onRemove}) => {
                 </tr>
             </thead>
             <tbody>
-                {rows.map(row => <Row values={row.slice(0, columns.length+1)} onEdit={onEdit} onRemove={onRemove}/>)}
+                {rows.map((row, i) => <Row index={i} values={row.slice(0, columns.length)} onEdit={onEdit} onRemove={onRemove}/>)}
             </tbody>
         </table>
     );
@@ -21,17 +21,17 @@ const HeaderCell = ({children}) => (
     <th scope="col" class="p-[16px]">{children}</th>
 );
 
-export const Row = ({values, onEdit, onRemove}) => {
-    const onRowClick = () => onEdit(values[0]);
+export const Row = ({index, values, onEdit, onRemove}) => {
+    const onRowClick = () => onEdit(index);
 
     const onRemoveClick = e => {
         e.stopPropagation();
-        onRemove(values[0]);
+        onRemove(index);
     }
 
     return (
         <tr class="bg-white border-b" onClick={onRowClick}>
-            {values.slice(1).map(value => <RowCell>{value}</RowCell>)}
+            {values.map(value => <RowCell>{value}</RowCell>)}
             <RowCell><RemoveButton onClick={onRemoveClick}/></RowCell>
         </tr>
     );

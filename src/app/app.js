@@ -25,7 +25,7 @@ const columns = [
     {name: 'КПП'}
 ];
 
-const initialRows = data.contragents.map((contragent, index) => [index, contragent.name, contragent.inn, contragent.address, contragent.kpp]);
+const initialRows = data.contragents.map(contragent => [contragent.name, contragent.inn, contragent.address, contragent.kpp]);
 
 const App = () => {
     const [state, setState] = createState({
@@ -48,32 +48,36 @@ const App = () => {
                 ...state,
                 showModal: false,
                 editingAgent: null,
-                rows: state.rows.map(row => row[0] === agent.id ? [agent.id, agent.name, agent.inn, agent.address, agent.kpp] : row),
+                rows: state.rows.map((row, i) => i === state.editingAgent ? [agent.name, agent.inn, agent.address, agent.kpp] : row),
             });
         } else {
             setState({
                 ...state,
                 showModal: false,
                 editingAgent: null,
-                rows: [...state.rows, [agent.id, agent.name, agent.inn, agent.address, agent.kpp]],
+                rows: [[agent.name, agent.inn, agent.address, agent.kpp], ...state.rows],
             });
         }
     }
 
-    const onAgentEdit = id => {
-        const agent = state.rows.find(row => row[0] === id);
+    const onAgentEdit = n => {
         setState({
             ...state,
-            editingAgent: {id: agent[0], name: agent[1], inn: agent[2], address: agent[3], kpp: agent[4]},
+            editingAgent: n,
             showModal: true,
         })
     }
 
-    const onAgentRemove = id => {
+    const onAgentRemove = n => {
         setState({
             ...state,
-            rows: state.rows.filter(row => row[0] !== id),
+            rows: state.rows.filter((row, i) => i !== n),
         })
+    }
+
+    const getAgentToEdit = () => {
+        const agent = state.rows[state.editingAgent];
+        return {name: agent[0], inn: agent[1], address: agent[2], kpp: agent[3]}
     }
 
     return (
@@ -88,7 +92,7 @@ const App = () => {
                 </section>
                 { state.showModal ?
                     <Modal caption="Контрагент" onClose={() => setShowModal(false)}>
-                        <ContragentAddPanel onContragentSave={onContragentSave} agent={state.editingAgent}/>
+                        <ContragentAddPanel onContragentSave={onContragentSave} agent={state.editingAgent ? getAgentToEdit() : null}/>
                     </Modal>
                 : '' }
             </main>
