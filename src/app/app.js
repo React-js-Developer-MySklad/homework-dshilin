@@ -1,6 +1,5 @@
-import TinyUI from "@tiny-ui/ui";
-import {createRef} from "@tiny-ui/ref";
-import DataTable, {Row} from "./components/data-table/data-table";
+import TinyUI, {createState} from "@tiny-ui/ui";
+import DataTable from "./components/data-table/data-table";
 import Button from "./components/button/button";
 import Modal from "./components/modal/modal";
 import ContragentAddPanel from "./components/contranget-add-panel/contragent-add-panel";
@@ -19,45 +18,83 @@ window.addEventListener('load', function () {
     TinyUI.bind(root, <App/>);
 });
 
-const App = () => {
-    const tableBodyRef = createRef();
-    const columns = [
-        {name: 'Наименование'},
-        {name: 'ИНН'},
-        {name: 'Адрес'},
-        {name: 'КПП'}
-    ];
-    const rows = data.contragents.map(contragent => [contragent.name, contragent.inn, contragent.address, contragent.kpp]);
+const columns = [
+    {name: 'Наименование'},
+    {name: 'ИНН'},
+    {name: 'Адрес'},
+    {name: 'КПП'}
+];
 
-    const modalRef = createRef();
-    const toggleModal = showModal => {
-        modalRef.tabIndex = showModal ? 1 : -1;
-        modal.classList.toggle('hidden', !showModal);
-        modal.ariaHidden = !showModal;
+const initialRows = data.contragents.map((contragent, index) => [index, contragent.name, contragent.inn, contragent.address, contragent.kpp]);
+
+const App = () => {
+    const [state, setState] = createState({
+        showModal: false,
+        editingAgent: null,
+        rows: initialRows,
+    });
+
+    const setShowModal = newValue => {
+        setState({
+            ...state,
+            editingAgent: null,
+            showModal: newValue,
+        })
     }
 
-    const onContragentSave = data => {
-        tableBodyRef.htmlElement.prepend(<Row values={[data.name, data.inn, data.address, data.kpp]}/>)
-        toggleModal(false);
+    const onContragentSave = agent => {
+        if (state.editingAgent) {
+            setState({
+                ...state,
+                showModal: false,
+                editingAgent: null,
+                rows: state.rows.map(row => row[0] === agent.id ? [agent.id, agent.name, agent.inn, agent.address, agent.kpp] : row),
+            });
+        } else {
+            setState({
+                ...state,
+                showModal: false,
+                editingAgent: null,
+                rows: [...state.rows, [agent.id, agent.name, agent.inn, agent.address, agent.kpp]],
+            });
+        }
+    }
+
+    const onAgentEdit = id => {
+        const agent = state.rows.find(row => row[0] === id);
+        setState({
+            ...state,
+            editingAgent: {id: agent[0], name: agent[1], inn: agent[2], address: agent[3], kpp: agent[4]},
+            showModal: true,
+        })
+    }
+
+    const onAgentRemove = id => {
+        setState({
+            ...state,
+            rows: state.rows.filter(row => row[0] !== id),
+        })
     }
 
     return (
-        <>
+        <div>
             <header>
                 <img src={Logo} alt="МойСклад" class="logo" />
-                <Button icon={IconFileAdd} iconAlt="+" text="Добавить" onClick={() => toggleModal(true)}/>
+                <Button icon={IconFileAdd} iconAlt="+" text="Добавить" onClick={() => setShowModal(true)}/>
             </header>
             <main>
                 <section class="content">
-                    <DataTable columns={columns} rows={rows} bodyRef={tableBodyRef}/>
+                    <DataTable columns={columns} rows={state.rows} onEdit={onAgentEdit} onRemove={onAgentRemove}/>
                 </section>
-                <Modal caption="Контрагент" ref={modalRef} onCloseModal={() => toggleModal(false)}>
-                    <ContragentAddPanel onContragentSave={onContragentSave}/>
-                </Modal>
+                { state.showModal ?
+                    <Modal caption="Контрагент" onClose={() => setShowModal(false)}>
+                        <ContragentAddPanel onContragentSave={onContragentSave} agent={state.editingAgent}/>
+                    </Modal>
+                : '' }
             </main>
             <footer>
                 <Footer/>
             </footer>
-        </>
+        </div>
     )
 }

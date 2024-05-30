@@ -15,10 +15,6 @@
     @apply max-h-full;
     @apply bg-gray-900/50;
 
-    &.hidden {
-        display: none;
-    }
-
     .modal-wrapper {
         @apply relative;
         @apply p-4;

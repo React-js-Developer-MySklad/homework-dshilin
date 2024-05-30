@@ -19,6 +19,7 @@ export class TinyComponent extends TinyObject {
         this.render = render;
         this.props = props;
         this.children = children;
+        this.htmlElement = null;
     }
 }
 
