@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import Input from '../input/input';
 import './contragent-add-panel.css'
 
@@ -16,20 +16,17 @@ export type ContragentAddPanelProps = {
     agent: Contragent;
 }
 
-const ContragentAddPanel = ({onContragentSave, agent}: ContragentAddPanelProps) => {
-    const nameRef = useRef<HTMLInputElement>();
-    const innRef = useRef<HTMLInputElement>();
-    const addressRef = useRef<HTMLInputElement>();
-    const kppRef = useRef<HTMLInputElement>();
+const ContragentAddPanel: FC<ContragentAddPanelProps> = ({onContragentSave, agent}) => {
+    const [name, setName] = useState(agent?.name || '');
+    const [inn, setInn] = useState(agent?.inn || '');
+    const [address, setAddress] = useState(agent?.address || '');
+    const [kpp, setKpp] = useState(agent?.kpp || '');
 
     const saveContragent = (e: FormEvent) => {
         e.preventDefault();
         onContragentSave({
             id: agent?.id || Math.floor(Math.random() * 1000),
-            name: nameRef.current?.value,
-            inn: innRef.current?.value,
-            address: addressRef.current?.value,
-            kpp: kppRef.current?.value
+            name, inn, address, kpp
         });
     }
 
@@ -37,16 +34,16 @@ const ContragentAddPanel = ({onContragentSave, agent}: ContragentAddPanelProps) 
         <form id="contragent-add-form" className="contragent-add-form" onSubmit={saveContragent}>
             <Input label="Наименование" required={true}
                    name="contragent-add-name" form="contragent-add-form"
-                   value={agent?.name} ref={nameRef}/>
+                   value={name} onChange={setName}/>
             <Input label="ИНН" pattern="^\d{10}$|^\d{12}$" title="Число, 10 или 12 знаков" required={true}
                    name="contragent-add-inn" form="contragent-add-form"
-                   value={agent?.inn} ref={innRef}/>
+                   value={inn} onChange={setInn}/>
             <Input label="Адрес" required={true}
                    name="contragent-add-address" form="contragent-add-form"
-                   value={agent?.address} ref={addressRef}/>
+                   value={address} onChange={setAddress}/>
             <Input label="КПП" pattern="^\d{9}" title="Число, 9 знаков" required={true}
                    name="contragent-add-kpp" form="contragent-add-form"
-                   value={agent?.kpp} ref={kppRef}/>
+                   value={kpp} onChange={setKpp}/>
             <button type="submit">Сохранить</button>
         </form>
     );
