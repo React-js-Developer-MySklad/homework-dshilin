@@ -31,7 +31,7 @@ const ContragentAddPanel: FC<ContragentAddPanelProps> = ({onContragentSave, agen
     }
 
     return (
-        <form id="contragent-add-form" className="contragent-add-form" onSubmit={saveContragent}>
+        <form id="contragent-add-form" className="contragent-add-form" onSubmit={saveContragent} data-testid="contragent-add-form">
             <Input label="Наименование" required={true}
                    name="contragent-add-name" form="contragent-add-form"
                    value={name} onChange={setName}/>

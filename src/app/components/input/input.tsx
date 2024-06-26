@@ -12,6 +12,7 @@ const Input: FC<InputProps> = ({name, label, onChange, ...otherProps}) => (
       <input
          type="text"
          name={name}
+         id={name}
          onChange={e => onChange(e.target.value)}
          {...otherProps}
       />
