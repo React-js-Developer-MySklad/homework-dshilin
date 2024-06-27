@@ -1,12 +1,13 @@
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ContragentAddPanel, {Contragent} from './contragent-add-panel';
+import ContragentForm from './contragent-form';
+import { Contragent } from '../../../types';
 
 const setup = (agent: Contragent) => {
    const handleSave = jest.fn();
 
    const utils= render(
-      <ContragentAddPanel onContragentSave={handleSave} agent={agent}/>
+      <ContragentForm onContragentSave={handleSave} agent={agent}/>
    );
 
    const form = utils.getByTestId('contragent-add-form') as HTMLFormElement;

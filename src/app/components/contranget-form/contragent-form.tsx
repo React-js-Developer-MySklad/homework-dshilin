@@ -1,22 +1,15 @@
 import { FC, FormEvent, useState } from 'react';
 import Input from '../input/input';
-import './contragent-add-panel.css'
-
-
-export type Contragent = {
-    id?: string;
-    name?: string;
-    inn?: string;
-    address?: string;
-    kpp?: string;
-}
+import './contragent-form.css'
+import {v4 as uuid} from 'uuid';
+import { Contragent } from '../../../types';
 
 export type ContragentAddPanelProps = {
     onContragentSave: Function;
     agent: Contragent;
 }
 
-const ContragentAddPanel: FC<ContragentAddPanelProps> = ({onContragentSave, agent}) => {
+const ContragentForm: FC<ContragentAddPanelProps> = ({onContragentSave, agent}) => {
     const [name, setName] = useState(agent?.name || '');
     const [inn, setInn] = useState(agent?.inn || '');
     const [address, setAddress] = useState(agent?.address || '');
@@ -25,7 +18,7 @@ const ContragentAddPanel: FC<ContragentAddPanelProps> = ({onContragentSave, agen
     const saveContragent = (e: FormEvent) => {
         e.preventDefault();
         onContragentSave({
-            id: agent?.id || Math.floor(Math.random() * 1000),
+            id: agent?.id || uuid(),
             name, inn, address, kpp
         });
     }
@@ -49,4 +42,4 @@ const ContragentAddPanel: FC<ContragentAddPanelProps> = ({onContragentSave, agen
     );
 }
 
-export default ContragentAddPanel;
+export default ContragentForm;
