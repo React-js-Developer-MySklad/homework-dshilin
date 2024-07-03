@@ -14,7 +14,7 @@ const Modal = ({caption, onClose, children}: ModalProps) => (
             <div className="modal-body">
                 <div className="modal-header">
                     <h3 className="modal-caption">{caption}</h3>
-                    <button className="modal-close-button" id="close-form-button" type="button" onClick={onClose}>
+                    <button className="modal-close-button" type="button" onClick={onClose} data-testid="form-close-button">
                         <img src={CloseIcon} alt="Close" className="w-3 h-3"/>
                         <span className="sr-only">Close modal</span>
                     </button>

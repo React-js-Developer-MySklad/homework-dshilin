@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ContragentForm from './contragent-form';
 import { Contragent } from '../../../types';
@@ -6,16 +6,14 @@ import { Contragent } from '../../../types';
 const setup = (agent: Contragent) => {
    const handleSave = jest.fn();
 
-   const utils= render(
-      <ContragentForm onContragentSave={handleSave} agent={agent}/>
-   );
+   render(<ContragentForm onContragentSave={handleSave} agent={agent}/>);
 
-   const form = utils.getByTestId('contragent-add-form') as HTMLFormElement;
-   const nameInput = utils.getByLabelText('Наименование') as HTMLInputElement;
-   const innInput = utils.getByLabelText('ИНН') as HTMLInputElement;
-   const addressInput = utils.getByLabelText('Адрес') as HTMLInputElement;
-   const kppInput = utils.getByLabelText('КПП') as HTMLInputElement;
-   const submitButton = utils.getByText("Сохранить") as HTMLInputElement;
+   const form = screen.getByTestId('contragent-add-form') as HTMLFormElement;
+   const nameInput = screen.getByLabelText('Наименование') as HTMLInputElement;
+   const innInput = screen.getByLabelText('ИНН') as HTMLInputElement;
+   const addressInput = screen.getByLabelText('Адрес') as HTMLInputElement;
+   const kppInput = screen.getByLabelText('КПП') as HTMLInputElement;
+   const submitButton = screen.getByText("Сохранить") as HTMLInputElement;
 
    return {
       form,
@@ -26,13 +24,12 @@ const setup = (agent: Contragent) => {
          kpp: kppInput,
       },
       submitButton,
-      handleSave,
-      ...utils,
+      handleSave
    };
 };
 
 describe('Форма добавления/редактирования контрагента', () => {
-   test('При открытие формы без переданного контрагента все поля пустые', () => {
+   it('При открытие без переданного контрагента все поля пустые', () => {
       const { inputs } = setup(null);
 
       expect(inputs.name).toHaveValue('');
@@ -41,7 +38,7 @@ describe('Форма добавления/редактирования конт�
       expect(inputs.kpp).toHaveValue('');
    });
 
-   test('Нажатие кнопки Сохранить не вызывает обработчик если все поля пустые', () => {
+   it('Нажатие кнопки Сохранить не вызывает обработчик если все поля пустые', () => {
       const { submitButton, handleSave } = setup(null);
 
       fireEvent.click(submitButton);
@@ -49,7 +46,7 @@ describe('Форма добавления/редактирования конт�
       expect(handleSave).toHaveBeenCalledTimes(0);
    });
 
-   test('Нажатие кнопки Сохранить не вызывает обработчик если ИНН содержит некорректное количество цифр', () => {
+   it('Нажатие кнопки Сохранить не вызывает обработчик если ИНН содержит некорректное количество цифр', () => {
       const { inputs,  submitButton, handleSave } = setup(null);
 
       fireEvent.change(inputs.name, {target: {value: 'АО "Восторженное событие'}})
@@ -61,7 +58,7 @@ describe('Форма добавления/редактирования конт�
       expect(handleSave).toHaveBeenCalledTimes(0);
    });
 
-   test('При нажатии кнопки Сохранить введенные значения передаются в обработчик', () => {
+   it('При нажатии кнопки Сохранить введенные значения передаются в обработчик', () => {
       const { inputs,  submitButton, handleSave } = setup(null);
 
       fireEvent.change(inputs.name, {target: {value: 'АО "Восторженное событие"'}});
@@ -79,7 +76,7 @@ describe('Форма добавления/редактирования конт�
       }));
    });
 
-   test('При открытие формы c переданным контрагентом поля формы заполняются соответствующими значениями', () => {
+   it('При открытие формы c переданным контрагентом поля формы заполняются соответствующими значениями', () => {
       const agent: Contragent = {
          id: '1',
          name: 'АО "Восторженное событие"',
@@ -98,7 +95,7 @@ describe('Форма добавления/редактирования конт�
       });
    });
 
-   test('При редактирование контрагента в обработчик передается объект с тем же идентификатором', () => {
+   it('При редактирование контрагента в обработчик передается объект с тем же идентификатором', () => {
       const agent: Contragent = {
          id: '657',
          name: 'ООО "Стальной образец"',
