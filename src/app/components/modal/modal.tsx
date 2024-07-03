@@ -1,6 +1,6 @@
-import './modal.css'
-import CloseIcon from '@assets/icon-cross.svg'
 import {MouseEventHandler, ReactElement} from "react";
+import CloseIcon from '@assets/icon-cross.svg'
+import './modal.css'
 
 type ModalProps = {
     caption: string;
@@ -9,7 +9,7 @@ type ModalProps = {
 }
 
 const Modal = ({caption, onClose, children}: ModalProps) => (
-    <section id="modal" className="modal" aria-modal="true" role="dialog" tabIndex={1}>
+    <section className="modal" aria-modal="true" role="dialog" tabIndex={1}>
         <div className="modal-wrapper">
             <div className="modal-body">
                 <div className="modal-header">
