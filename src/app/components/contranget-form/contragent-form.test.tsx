@@ -71,7 +71,7 @@ describe('Форма добавления/редактирования конт�
       fireEvent.click(submitButton);
 
       expect(handleSave).toHaveBeenNthCalledWith(1, expect.objectContaining({
-         id: expect.any(Number),
+         id: expect.stringMatching(RegExp(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/)),
          name: 'АО "Восторженное событие"',
          inn: '123456789012',
          address: '620315, г. Екатеринбург, ул. Лермонтова, 32, оф. 64',
