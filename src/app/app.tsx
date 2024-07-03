@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import Modal from './components/modal/modal';
 import ContragentForm from './components/contranget-form/contragent-form';
 import Table, { Column } from './components/table';
 import RemoveButton from './components/remove-button/remove-button';
+import { getContragents } from '../api/api';
 import { Contragent } from '../types';
 import './app.css';
-
-import data from '../data/contragents.json';
-
-const initialAgents: Array<Contragent> = data.contragents;
 
 const App = () => {
     const [state, setState] = useState({
         showModal: false,
         editingAgent: null,
-        agents: initialAgents,
+        agents: [] as Array<Contragent>,
     });
+
+    useEffect(() => {
+        getContragents().then(agents => setState({...state, agents: agents}))
+    }, [])
 
     const setShowModal = (newValue: boolean) => {
         setState({
