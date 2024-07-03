@@ -73,11 +73,10 @@ const App = () => {
                         <Column title='' key='remove' render={(agent:Contragent) => <RemoveButton handleRemove={() => removeAgent(agent)} />} />
                     </Table>
                 </section>
-                { state.showModal ?
+                { state.showModal &&
                     <Modal caption="Контрагент" onClose={() => setShowModal(false)}>
                         <ContragentForm onContragentSave={onContragentSave} agent={state.editingAgent}/>
-                    </Modal>
-                : '' }
+                    </Modal> }
             </main>
             <Footer/>
         </div>
