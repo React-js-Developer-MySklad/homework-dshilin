@@ -1,72 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import Modal from './components/modal/modal';
 import ContragentForm from './components/contranget-form/contragent-form';
 import Table, { Column } from './components/table';
 import RemoveButton from './components/remove-button/remove-button';
+import reducer, { initialValue } from './reducers/contragent-reducer';
 import { getContragents } from '../api/api';
 import { Contragent } from '../types';
 import './app.css';
 
 const App = () => {
-    const [state, setState] = useState({
-        showModal: false,
-        editingAgent: null,
-        agents: [] as Array<Contragent>,
-    });
+    const [state, dispatch] = useReducer(reducer, initialValue);
 
     useEffect(() => {
-        getContragents().then(agents => setState({...state, agents: agents}))
+        getContragents().then(agents => dispatch({type: 'setAgents', payload: agents}))
     }, [])
 
-    const setShowModal = (newValue: boolean) => {
-        setState({
-            ...state,
-            editingAgent: null,
-            showModal: newValue,
-        })
-    }
-
     const onContragentSave = (newAgent : Contragent) => {
-        if (state.editingAgent) {
-            setState({
-                ...state,
-                showModal: false,
-                editingAgent: null,
-                agents: state.agents.map(agent => agent.id === state.editingAgent.id ? newAgent : agent),
-            });
-        } else {
-            setState({
-                ...state,
-                showModal: false,
-                editingAgent: null,
-                agents: [newAgent, ...state.agents],
-            });
-        }
+        dispatch({type: 'saveContragent', payload: newAgent});
     }
 
-    const onAgentEdit = (item: Contragent) => {
-        setState({
-            ...state,
-            editingAgent: item,
-            showModal: true,
-        })
+    const openModal = (item?: Contragent) => {
+        dispatch({type: 'openModal', payload: item});
     }
 
     const removeAgent = (agentToRemove: Contragent) => {
-        setState({
-            ...state,
-            agents: state.agents.filter((agent) => agent.id !== agentToRemove.id),
-        })
+        dispatch({type: 'removeAgent', payload: agentToRemove});
     }
 
     return (
         <div>
-            <Header mainButtonHandler={() => setShowModal(true)}/>
+            <Header mainButtonHandler={() => openModal()}/>
             <main>
                 <section className="content">
-                    <Table items={state.agents} itemKeyGetter={agent => agent.id} onRowClick={onAgentEdit}>
+                    <Table items={state.agents} itemKeyGetter={agent => agent.id} onRowClick={openModal}>
                         <Column title='Наименование' key='name' render={(agent:Contragent) => agent.name} />
                         <Column title='ИНН' key='inn' render={(agent:Contragent) => agent.inn} />
                         <Column title='Адрес' key='address' render={(agent:Contragent) => agent.address} />
@@ -75,7 +43,7 @@ const App = () => {
                     </Table>
                 </section>
                 { state.showModal &&
-                    <Modal caption="Контрагент" onClose={() => setShowModal(false)}>
+                    <Modal caption="Контрагент" onClose={() => dispatch({type: 'closeModal'})}>
                         <ContragentForm onContragentSave={onContragentSave} agent={state.editingAgent}/>
                     </Modal> }
             </main>

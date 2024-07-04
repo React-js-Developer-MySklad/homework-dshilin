@@ -27,7 +27,7 @@ export function Table<T>({columns, items, onRowClick, itemKeyGetter, children}: 
             </tr>
          </thead>
          <tbody>
-            {items.map((item) => <Row key={itemKeyGetter(item)} columns={columns} item={item} onRowClick={onRowClick}/>)}
+            {items && items.map((item) => <Row key={itemKeyGetter(item)} columns={columns} item={item} onRowClick={onRowClick}/>)}
          </tbody>
       </table>
    );
