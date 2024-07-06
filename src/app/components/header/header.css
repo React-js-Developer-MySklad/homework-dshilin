@@ -1,0 +1,11 @@
+header {
+    @apply flex;
+    @apply flex-row;
+    @apply justify-between;
+    @apply py-[12px];
+    @apply mb-[16px];
+
+    .logo {
+        @apply h-[24px];
+    }
+}
