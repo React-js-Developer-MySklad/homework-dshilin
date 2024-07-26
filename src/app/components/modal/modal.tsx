@@ -1,28 +1,31 @@
-import {MouseEventHandler, ReactElement} from "react";
-import CloseIcon from '@assets/icon-cross.svg'
-import './modal.css'
+import CloseIcon from '@assets/icon-cross.svg';
+import './modal.css';
+import {useModal} from "../../hooks/useModal";
+import {createPortal} from "react-dom";
 
-type ModalProps = {
-    caption: string;
-    onClose: MouseEventHandler<HTMLButtonElement>;
-    children:  ReactElement;
-}
+const Modal = () => {
+    const {display, content, close} = useModal();
 
-const Modal = ({caption, onClose, children}: ModalProps) => (
-    <section className="modal" aria-modal="true" role="dialog" tabIndex={1}>
-        <div className="modal-wrapper">
-            <div className="modal-body">
-                <div className="modal-header">
-                    <h3 className="modal-caption">{caption}</h3>
-                    <button className="modal-close-button" type="button" onClick={onClose} data-testid="form-close-button">
-                        <img src={CloseIcon} alt="Close" className="w-3 h-3"/>
-                        <span className="sr-only">Close modal</span>
-                    </button>
+    return (
+        <> {display && createPortal(
+            <section className="modal" aria-modal="true" role="dialog" tabIndex={1}>
+                <div className="modal-wrapper">
+                    <div className="modal-body">
+                        <div className="modal-header">
+                            <h3 className="modal-caption">{content.caption}</h3>
+                            <button className="modal-close-button" type="button" onClick={close}
+                                    data-testid="form-close-button">
+                                <img src={CloseIcon} alt="Close" className="w-3 h-3"/>
+                                <span className="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <div className="modal-content">{content.body}</div>
+                    </div>
                 </div>
-                <div className="modal-content">{children}</div>
-            </div>
-        </div>
-    </section>
-)
+            </section>
+            , document.body)}
+        </>
+    )
+}
 
 export default Modal;

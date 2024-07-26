@@ -2,34 +2,33 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Modal from './modal';
 import { ReactElement } from 'react';
+import {ModalProvider, useModal} from "../../hooks/useModal";
 
 
-const setup = (caption: string, children?: ReactElement) => {
-   const handleClose = jest.fn();
-   render(
-      <Modal caption={caption} onClose={handleClose}>
-         {children}
-      </Modal>
-   );
+const setup = (caption: string, body: ReactElement) => {
+    const open = jest.fn();
+    const close = jest.fn();
+    const onClose = jest.fn();
+    const value = { display: true, content: { caption, body }, open, close, onClose }
 
-   return {
-      handleClose
-   }
+    render(<ModalProvider value={value}><Modal /></ModalProvider>);
+
+    return { onClose }
 }
 
 describe('Модальное окно', () => {
-   it('Отображает заголовок и потомков', () => {
-      setup('TestCaption', <div>Test content</div>)
+    it('Отображает заголовок и потомков', () => {
+        setup('TestCaption', <div>Test content</div>)
 
-      expect(screen.getByText('Test content')).toBeTruthy();
-      expect(screen.getByText('TestCaption')).toBeTruthy();
-   });
+        expect(screen.getByText('Test content')).toBeTruthy();
+        expect(screen.getByText('TestCaption')).toBeTruthy();
+    });
 
-   it('Вызывает обработчик закрытия при нажатии на крестик', () => {
-      const {handleClose} = setup('', <></>)
+    it('Вызывает обработчик закрытия при нажатии на крестик', () => {
+        const {onClose} = setup('', <></>)
 
-      fireEvent.click(screen.getByTestId('form-close-button'));
+        fireEvent.click(screen.getByTestId('form-close-button'));
 
-      expect(handleClose).toHaveBeenCalledTimes(1);
-   });
+        expect(onClose).toHaveBeenCalledTimes(1);
+    });
 });

@@ -23,7 +23,7 @@ export function Table<T>({columns, items, onRowClick, itemKeyGetter, children}: 
       <table className="w-full text-sm text-left text-gray-500">
          <thead className="text-xs text-gray-500 uppercase bg-gray-50 border-b">
             <tr>
-               {columns.map((column) => <HeaderCell key={column.key}>{column.title}</HeaderCell>)}
+               {columns.map((column) => <HeaderCell key={column.keyValue}>{column.title}</HeaderCell>)}
             </tr>
          </thead>
          <tbody>
