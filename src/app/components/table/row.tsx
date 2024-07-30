@@ -16,7 +16,7 @@ function Row<T>({columns, item, onRowClick}: RowProps<T>) {
 
    return (
       <tr className="bg-white border-b" onClick={onClick}>
-         {columns.map(column => <RowCell key={column.key}>{column.render(item)}</RowCell>)}
+         {columns.map(column => <RowCell key={column.keyValue}>{column.render(item)}</RowCell>)}
       </tr>
    );
 }

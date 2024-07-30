@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 export interface ColumnProps<T> {
    children?: null;
    title: ReactNode;
-   key: string;
+   keyValue: string;
    render: (item: T) => ReactNode;
 }
 
