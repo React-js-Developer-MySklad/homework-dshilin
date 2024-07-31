@@ -22,4 +22,34 @@
         @apply w-full;
         @apply p-2.5;
     }
+
+    span {
+        display: none;
+    }
+
+    &&.error {
+        label {
+            @apply block;
+            @apply mb-2;
+            @apply text-sm;
+            @apply font-medium;
+            @apply text-red-700;
+        }
+        input {
+            @apply bg-red-50;
+            @apply border;
+            @apply border-red-500;
+            @apply text-red-900;
+            @apply placeholder-red-700;
+            @apply text-sm;
+            @apply rounded-lg;
+            @apply focus:ring-red-500;
+        }
+        span {
+            display: inline;
+            @apply mt-2;
+            @apply text-sm;
+            @apply text-red-600;
+        }
+    }
 }
